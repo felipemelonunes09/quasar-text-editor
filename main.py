@@ -21,40 +21,49 @@ class QuasarEditor:
         self.edit_screen.show_default()
         self.menu.create()
         
-        self.loaded_content = None
-        self.content_type   = None 
-        self.current_path   = None
+        self.__loaded_content = None
+        self.__content_type   = None
+        self.__current_path   = None
         
 
     def load_file(self):
         path = utils.open_file()
         if path:
             with open(path, 'r') as file:
-                self.loaded_content = file.read()
-                self.content_type = 'FILE'
-                self.current_path = path
+                self.set_loaded_content(file.read())
+                self.set_content_type('FILE')
+                self.set_current_path(path)
             
             self.edit_screen.show_editor(self.loaded_content)        
             self.attribute_screen.show_filetree(path)
             
     def load_dir(self):
-        
         path = utils.open_dir()
         if path:
             self.attribute_screen.show_dirtree(path)
-            
-            self.loaded_content = path
+            self.set_loaded_content(path)
+            self.set_current_path(path)
+            self.set_content_type('DIR')
             self.edit_screen.show_editor("")
-            self.content_type = 'DIR'
             
     def new_file(self):
+        self.set_content_type('FILE')
         self.edit_screen.show_editor("")
         
     def get_content(self):
         return self.edit_screen.get_text()
     
     def get_context(self):
-        return (self.current_path, self.content_type, self.loaded_content)
+        return (self.__current_path, self.__content_type, self.__loaded_content)
+    
+    def set_current_path(self, path: str):
+        self.__current_path = path
+        
+    def set_loaded_content(self, content: str):
+        self.__loaded_content = content
+        
+    def set_content_type(self, type):
+        self.__content_type = type
 
 # Create the main window and run the application
 if __name__ == "__main__":

@@ -19,6 +19,7 @@ class EditorScreen(Screen):
         
         label_quasar        = tk.Label(self.screen, text="QuasarEditor", bg = config.EDITOR_BACKGROUND_COLOR, font=("Helvetica", 25), fg="white")
         label_description   = tk.Label(self.screen, text="Try opening a directorie or creating a new file :)", bg=config.EDITOR_BACKGROUND_COLOR)
+        
         button_open_file    = tk.Button(self.screen, text="Open File", height=2, command=self.editor.load_file)
         button_open_project = tk.Button(self.screen, text="Open Project", height=2, command=self.editor.load_dir)
         button_new          = tk.Button(self.screen, text="New File", height=2, command=self.editor.new_file)
