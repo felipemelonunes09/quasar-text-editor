@@ -7,11 +7,11 @@ from shared import utils
 
 class EditorScreen(Screen):
     
-    def __init__(self, root, parent) -> None:
+    def __init__(self, root, editor) -> None:
         
         super().__init__(root, bg=config.EDITOR_BACKGROUND_COLOR)
-        self.parent = parent
         self.screen.pack(side="right", fill="both", expand=True)
+        self.editor = editor
         
     def show_default(self):
         
@@ -19,9 +19,9 @@ class EditorScreen(Screen):
         
         label_quasar        = tk.Label(self.screen, text="QuasarEditor", bg = config.EDITOR_BACKGROUND_COLOR, font=("Helvetica", 25), fg="white")
         label_description   = tk.Label(self.screen, text="Try opening a directorie or creating a new file :)", bg=config.EDITOR_BACKGROUND_COLOR)
-        button_open_file    = tk.Button(self.screen, text="Open File", height=2, command=self.parent.load_file)
-        button_open_project = tk.Button(self.screen, text="Open Project", height=2, command=self.parent.load_dir)
-        button_new          = tk.Button(self.screen, text="New File", height=2, command=self.parent.new_file)
+        button_open_file    = tk.Button(self.screen, text="Open File", height=2, command=self.editor.load_file)
+        button_open_project = tk.Button(self.screen, text="Open Project", height=2, command=self.editor.load_dir)
+        button_new          = tk.Button(self.screen, text="New File", height=2, command=self.editor.new_file)
         
         label_quasar.place(x=20, y=20)
         label_description.place(x=20, y=60)
@@ -71,3 +71,7 @@ class EditorScreen(Screen):
             self.text_widget.tag_add(tag, start_pos, end_pos)
             self.text_widget.tag_config(tag, foreground=color)
             start_pos = end_pos
+            
+    def get_text(self):
+        if self.text_widget:
+            return self.text_widget.get("1.0", tk.END)

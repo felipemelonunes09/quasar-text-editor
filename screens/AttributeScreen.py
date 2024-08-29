@@ -9,7 +9,7 @@ class AttributeScreen(Screen):
         
         super().__init__(root, bg=config.ATTRIBUTE_BACKGROUND_COLOR, width=200)
         self.screen.pack(side="left", fill="both", expand=False)
-        
+    
         self.show_fileeplorer_label()
        
     def show_fileeplorer_label(self):
