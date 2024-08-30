@@ -10,9 +10,6 @@ class Menu():
     def on_save(self, *args, **kwd):
         
         path, type, _ = self.editor.get_context()
-        print(f"(+) Saving content")
-        print(f"\t(*) path: {path}")
-        print(f"\t(*) type: {type}")
         
         # case its a file loaded into the editor
         if type == 'FILE':
