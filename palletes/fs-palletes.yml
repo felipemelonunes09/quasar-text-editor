@@ -1,0 +1,9 @@
+dark-pallete: 
+  background: '#2f2f2f'
+  primary: '#4f4f4f'  
+  secondary: '#666666'  
+  accent: '#8f8f8f' 
+  text: '#ffffff' 
+  text_secondary: '#cccccc'
+  error: '#ff0000' 
+  success: '#00ff00'  

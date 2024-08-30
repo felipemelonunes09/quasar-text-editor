@@ -9,7 +9,7 @@ class EditorScreen(Screen):
     
     def __init__(self, root, editor) -> None:
         
-        super().__init__(root, bg=config.EDITOR_BACKGROUND_COLOR)
+        super().__init__(root, bg=editor.get_pallete().background)
         self.screen.pack(side="right", fill="both", expand=True)
         self.editor = editor
         
@@ -17,8 +17,8 @@ class EditorScreen(Screen):
         
         self.clear_screen()
         
-        label_quasar        = tk.Label(self.screen, text="QuasarEditor", bg = config.EDITOR_BACKGROUND_COLOR, font=("Helvetica", 25), fg="white")
-        label_description   = tk.Label(self.screen, text="Try opening a directorie or creating a new file :)", bg=config.EDITOR_BACKGROUND_COLOR)
+        label_quasar        = tk.Label(self.screen, text="QuasarEditor", bg=self.editor.get_pallete().background, font=("Helvetica", 25), fg="white")
+        label_description   = tk.Label(self.screen, text="Try opening a directorie or creating a new file :)", bg=self.editor.get_pallete().background)
         
         button_open_file    = tk.Button(self.screen, text="Open File", height=2, command=self.editor.load_file)
         button_open_project = tk.Button(self.screen, text="Open Project", height=2, command=self.editor.load_dir)

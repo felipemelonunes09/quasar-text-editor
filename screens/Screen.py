@@ -1,5 +1,6 @@
 import tkinter as tk
 import config
+
 from shared import utils
 
 class Screen():
@@ -12,3 +13,9 @@ class Screen():
     def clear_screen(self):
         for widget in self.screen.winfo_children():
             widget.destroy()
+
+    def set_visible(self, *args, **kwd):
+        self.screen.pack(*args, **kwd)
+        
+    def set_invisible(self):
+        self.screen.forget()
