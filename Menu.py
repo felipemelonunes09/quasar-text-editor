@@ -15,9 +15,6 @@ class Menu():
         if type == 'FILE':
             
             content = self.editor.get_content()
-            # this make sure that its path in case there is no path, it means that its a file that is beaing created in the editor
-            print(path)
-            print(not path)
             if not path:
                 
                 print("\t(*) Path not founded, opening dialog box")
