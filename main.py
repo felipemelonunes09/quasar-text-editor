@@ -11,6 +11,8 @@ from screens.EditorScreen import EditorScreen
 class QuasarEditor:
     def __init__(self, root, workspace = None):
         
+        
+        self.__pallete        = None
         self.set_pallete(config.FS_PALLETES_DIR, config.FS_PALLETE_FILE, config.PALLETE)
         
         # Set up the main window
@@ -28,7 +30,7 @@ class QuasarEditor:
         self.__loaded_content = None
         self.__content_type   = None
         self.__current_path   = None
-        self.__pallete          = None
+        
         
     def set_pallete(self, dir_pallete: str, file_pallete: str, theme: str):
         
@@ -57,24 +59,26 @@ class QuasarEditor:
         path = utils.open_file()
         if path:
             with open(path, 'r') as file:
+                self.attribute_screen.set_invisible()
                 self.set_loaded_content(file.read())
                 self.set_content_type('FILE')
                 self.set_current_path(path)
             
-            self.edit_screen.show_editor(self.loaded_content)        
-            self.attribute_screen.show_filetree(path)
+            self.edit_screen.show_editor(self.__loaded_content)        
             
     def load_dir(self):
         path = utils.open_dir()
         if path:
-            self.attribute_screen.show_dirtree(path)
             self.set_loaded_content(path)
             self.set_current_path(path)
             self.set_content_type('DIR')
+            
+            self.attribute_screen.show_dirtree(path)
             self.edit_screen.show_editor("")
             
     def new_file(self):
         self.set_content_type('FILE')
+        self.edit_screen.set_visible()
         self.edit_screen.show_editor("")
         
     def get_content(self):
