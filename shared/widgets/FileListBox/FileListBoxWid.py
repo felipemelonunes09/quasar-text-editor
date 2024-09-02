@@ -2,7 +2,7 @@ import tkinter as tk
 import os
 
 from typing import Callable, Union
-from shared.widgets.FileListBox.Entity import Dir, File
+from core.file_objects import Dir, File
 
 class FileListBoxWid():
     
@@ -12,7 +12,7 @@ class FileListBoxWid():
         self.listbox.bind("<<ListboxSelect>>", self.__on_item_click)
         self.callback = callback
         
-        self.entities = [ Dir(path=path, name=path.split("/")[-1]) ]
+        self.entities = [Dir(path=path, name=path.split("/")[-1])]
         
         #for item in os.listdir(path):
         #    fullpath = os.path.join(self.path, item)
@@ -25,10 +25,11 @@ class FileListBoxWid():
         # fix this, and att deletion just from the item clicked
         self.listbox.delete(0, tk.END)
         for entity in self.entities:
+            name = entity.get_name()
             if isinstance(entity, File):
-                self.listbox.insert(tk.END, entity.name)
+                self.listbox.insert(tk.END, name)
             else:
-                self.listbox.insert(tk.END, entity.name + "/")
+                self.listbox.insert(tk.END, name + "/")
                 if not entity.is_closed():
                     self.__insert_subitem_recursive(entity.get_entities())
                     
@@ -36,7 +37,7 @@ class FileListBoxWid():
     def __insert_subitem_recursive(self, entities: list[Union[Dir, File]], offset="\t"):
         
         for entity in entities:
-            display_name = f"{offset}{entity.name}"
+            display_name = f"{offset}{entity.get_name()}"
             if isinstance(entity, File):
                 self.listbox.insert(tk.END, display_name)
             else:

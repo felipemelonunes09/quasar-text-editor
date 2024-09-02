@@ -1,7 +1,9 @@
 import tkinter as tk
+from typing import Union
 import config
 import os
 
+from core.file_objects import File
 from screens.Screen import Screen
 from shared.widgets.FileListBox.FileListBoxWid import FileListBoxWid
 
@@ -33,5 +35,5 @@ class AttributeScreen(Screen):
         listbox.update()
         
     
-    def __on_item_click(self, entity, event, *a, **k):
-        print("File")
+    def __on_item_click(self, entity: File, event, *a, **k):
+        self.editor.load_file(file=entity)

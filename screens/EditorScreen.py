@@ -2,6 +2,7 @@
 import tkinter as tk
 import config
 
+from core.file_objects import File
 from screens.Screen import Screen
 from shared import utils
 
@@ -20,7 +21,7 @@ class EditorScreen(Screen):
         label_quasar        = tk.Label(self.screen, text="QuasarEditor", bg=self.editor.get_pallete().background, font=("Helvetica", 25), fg="white")
         label_description   = tk.Label(self.screen, text="Try opening a directorie or creating a new file :)", bg=self.editor.get_pallete().background)
         
-        button_open_file    = tk.Button(self.screen, text="Open File", height=2, command=self.editor.load_file)
+        button_open_file    = tk.Button(self.screen, text="Open File", height=2, command=self.__on_click_btn_open_file)
         button_open_project = tk.Button(self.screen, text="Open Project", height=2, command=self.editor.load_dir)
         button_new          = tk.Button(self.screen, text="New File", height=2, command=self.editor.new_file)
         
@@ -76,3 +77,8 @@ class EditorScreen(Screen):
     def get_text(self):
         if self.text_widget:
             return self.text_widget.get("1.0", tk.END)
+        
+    def __on_click_btn_open_file(self):
+        path = utils.open_file()
+        file = File(path=path, name=path.split("/")[-1])
+        self.editor.load_file(file=file)

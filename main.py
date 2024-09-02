@@ -4,9 +4,12 @@ import Menu
 import yaml
 
 from types import SimpleNamespace
+from core.file_handlers import FileLoader
 from shared import utils
 from screens.AttributeScreen import AttributeScreen
 from screens.EditorScreen import EditorScreen
+from core.file_objects import File
+
 
 class QuasarEditor:
     def __init__(self, root, workspace = None):
@@ -55,16 +58,14 @@ class QuasarEditor:
                 child.config(bg=theme['background'], fg=theme['text'])
         
 
-    def load_file(self):
-        path = utils.open_file()
-        if path:
-            with open(path, 'r') as file:
-                self.attribute_screen.set_invisible()
-                self.set_loaded_content(file.read())
-                self.set_content_type('FILE')
-                self.set_current_path(path)
-            
-            self.edit_screen.show_editor(self.__loaded_content)        
+    def load_file(self, file: File = None):
+                
+        file_loader = FileLoader(file=file)
+        self.set_loaded_content(file_loader.load())
+        self.set_content_type('FILE')
+        self.set_current_path(file.get_path())
+        
+        self.edit_screen.show_editor(self.__loaded_content)        
             
     def load_dir(self):
         path = utils.open_dir()
@@ -104,3 +105,4 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = QuasarEditor(root)
     root.mainloop()
+
