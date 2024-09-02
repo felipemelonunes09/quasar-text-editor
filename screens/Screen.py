@@ -7,7 +7,9 @@ class Screen():
     
     def __init__(self, root, bg, width=400, height=300) -> None:
         
-        self.root = root
+        self.root   = root
+        self.width  = width
+        self.height = height
         self.screen = tk.Frame(self.root, width=width, height=height, bg=bg)
     
     def clear_screen(self):

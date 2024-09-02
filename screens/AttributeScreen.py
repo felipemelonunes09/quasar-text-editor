@@ -3,13 +3,16 @@ import config
 import os
 
 from screens.Screen import Screen
+from shared.widgets.FileListBox.FileListBoxWid import FileListBoxWid
 
 class AttributeScreen(Screen):
     def __init__(self, root, editor):
         
         super().__init__(root, bg=editor.get_pallete().primary, width=200)
+        
         self.editor = editor
-        self.show_fileeplorer_label()
+        self.item_data = dict()
+        self.listbox = None
         
     def set_visible(self):
         return super().set_visible(side="left", fill="both", expand=False)
@@ -20,27 +23,15 @@ class AttributeScreen(Screen):
         
     def show_dirtree(self, path):
         
+        self.set_visible()
         self.clear_screen()    
         self.show_fileeplorer_label()
     
-        objects = os.listdir(path)
-        filename = path.split("/")
         
-        listbox = tk.Listbox(self.screen, height=self.screen.winfo_height(), width=self.screen.winfo_width(), bg=self.editor.get_pallete().primary, bd=0)
-        dirname = tk.Label(self.screen, text=filename[-2], bg=self.editor.get_pallete().primary, font=('Arial', 14, 'bold'))
+        listbox = FileListBoxWid(path=path, callback=self.__on_item_click, master=self.screen, height=self.height, width=self.width, bg=self.editor.get_pallete().primary, bd=0)
+        listbox.place(x=20, y=50)
+        listbox.update()
         
-        dirname.place(x=15, y=40)
-        listbox.place(x=0, y=65)
-        
-        for item in objects: 
-            
-            full_path = f"{path}/{item}"
-            if os.path.isdir(full_path):
-                listbox.insert(tk.END, "\t> "+item)
-            else:
-                listbox.insert(tk.END, "\t"+item)
-                
-            
-        listbox.update_idletasks()
-        dirname.update_idletasks()
-        
+    
+    def __on_item_click(self, entity, event, *a, **k):
+        print("File")
