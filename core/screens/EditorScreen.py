@@ -2,9 +2,10 @@
 import tkinter as tk
 import config
 
-from core.file_objects import File
-from screens.Screen import Screen
+
 from shared import utils
+from core.file_objects import File
+from core.screens.Screen import Screen
 
 class EditorScreen(Screen):
     

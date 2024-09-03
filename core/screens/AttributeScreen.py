@@ -1,10 +1,10 @@
-import tkinter as tk
-from typing import Union
 import config
 import os
 
+import tkinter as tk
+
 from core.file_objects import File
-from screens.Screen import Screen
+from core.screens.Screen import Screen
 from shared.widgets.FileListBox.FileListBoxWid import FileListBoxWid
 
 class AttributeScreen(Screen):
@@ -29,7 +29,6 @@ class AttributeScreen(Screen):
         self.clear_screen()    
         self.show_fileeplorer_label()
     
-        
         listbox = FileListBoxWid(path=path, callback=self.__on_item_click, master=self.screen, height=self.height, width=self.width, bg=self.editor.get_pallete().primary, bd=0)
         listbox.place(x=20, y=50)
         listbox.update()
