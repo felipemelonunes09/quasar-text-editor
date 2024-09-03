@@ -9,6 +9,7 @@ from shared import utils
 from core.screens.AttributeScreen import AttributeScreen
 from core.screens.EditorScreen import EditorScreen
 from core.file_objects import File
+from styles import style
 
 class QuasarEditor:
     def __init__(self, root):
@@ -18,7 +19,7 @@ class QuasarEditor:
         self.set_pallete(config.FS_PALLETES_DIR, config.FS_PALLETE_FILE, config.PALLETE)
         
         self.root = root
-        self.root.title("QuasarEditor")
+        self.root.title("<QuasarEditor>")
 
         self.edit_screen        = EditorScreen(self.root, self)
         self.attribute_screen   = AttributeScreen(self.root, self)
@@ -29,6 +30,7 @@ class QuasarEditor:
         self.edit_screen.show_default()
         self.menu.create()
         
+        style.configure(root)
         
     def set_pallete(self, dir_pallete: str, file_pallete: str, theme: str):
         
@@ -39,19 +41,6 @@ class QuasarEditor:
         
         for key in object[theme]:
             self.__pallete.__setattr__(key, object[theme][key])
-
-
-    def load_theme(self, theme):
-        for child in self.root.winfo_children():
-            if isinstance(child, tk.Button):
-                child.config(bg=theme['primary'], fg=theme['text'])
-            elif isinstance(child, tk.Label):
-                child.config(bg=theme['background'], fg=theme['text'])
-            elif isinstance(child, tk.Frame):
-                child.config(bg=theme['background'])
-            else:
-                child.config(bg=theme['background'], fg=theme['text'])
-        
 
     def load_file(self, file: File = None):
                

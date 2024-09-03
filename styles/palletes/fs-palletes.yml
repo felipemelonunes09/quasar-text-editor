@@ -6,4 +6,4 @@ dark-pallete:
   text: '#ffffff' 
   text_secondary: '#cccccc'
   error: '#ff0000' 
-  success: '#00ff00'  
+  success: '#00ff00'

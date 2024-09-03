@@ -1,11 +1,15 @@
 
 import tkinter as tk
+from tkinter import ttk
+
 import config
 
-
 from shared import utils
+
 from core.file_objects import File
 from core.screens.Screen import Screen
+
+
 
 class EditorScreen(Screen):
     
@@ -19,12 +23,12 @@ class EditorScreen(Screen):
         
         self.clear_screen()
         
-        label_quasar        = tk.Label(self.screen, text="QuasarEditor", bg=self.editor.get_pallete().background, font=("Helvetica", 25), fg="white")
+        label_quasar        = tk.Label(self.screen, text="<Quasar-Editor>", bg=self.editor.get_pallete().background, font=("Helvetica", 25), fg="white")
         label_description   = tk.Label(self.screen, text="Try opening a directorie or creating a new file :)", bg=self.editor.get_pallete().background)
         
-        button_open_file    = tk.Button(self.screen, text="Open File", height=2, command=self.__on_click_btn_open_file)
-        button_open_project = tk.Button(self.screen, text="Open Project", height=2, command=self.editor.load_dir)
-        button_new          = tk.Button(self.screen, text="New File", height=2, command=self.editor.new_file)
+        button_open_file    = ttk.Button(self.screen, text="Open File", command=self.__on_click_btn_open_file, style="Custom.TButton", image=tk.PhotoImage(file=config.FILE_PLUS_ICON_PATH), compound=tk.LEFT)
+        button_open_project = ttk.Button(self.screen, text="Open Project", command=self.editor.load_dir, style="Custom.TButton", image=tk.PhotoImage(file=config.FILE_EDIT_ICON_PATH), compound=tk.LEFT)
+        button_new          = ttk.Button(self.screen, text="New File", command=self.editor.new_file, style="Custom.TButton", image=tk.PhotoImage(file=config.PROJECT_ICON_PATH), compound=tk.LEFT)
         
         label_quasar.place(x=20, y=20)
         label_description.place(x=20, y=60)
