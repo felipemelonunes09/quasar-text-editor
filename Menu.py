@@ -1,6 +1,8 @@
 import tkinter as tk
 from shared import utils
 
+from core.file_handlers import FileWriter
+
 class Menu():
     
     def __init__(self, root, editor) -> None:
@@ -9,26 +11,12 @@ class Menu():
         
     def on_save(self, *args, **kwd):
         
-        path, type, _ = self.editor.get_context()
-        
-        # case its a file loaded into the editor
-        if type == 'FILE':
-            
-            content = self.editor.get_content()
-            if not path:
-                
-                print("\t(*) Path not founded, opening dialog box")
-                
-                path = utils.open_save_file()
-                self.editor.set_current_path(path)
-            
-            with open(path, 'w') as file:
-                file.write(content)
+        file_write = FileWriter(file=self.editor.get_current_file(), content=self.editor.get_content())
+        file_write.write()
     
     def create(self) -> None:
         menu_bar = tk.Menu(self.root)
         self.root.config(menu=menu_bar)
-        
         
         file_menu = tk.Menu(menu_bar, tearoff=0)
         menu_bar.add_cascade(label="File", menu=file_menu)
