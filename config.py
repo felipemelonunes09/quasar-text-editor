@@ -16,3 +16,5 @@ HIGHLIGHT_PATH = 'assets/highlights'
 MAP_EXTENSION_FILE = {
     '.qs': 'quasar.json'
 }
+
+

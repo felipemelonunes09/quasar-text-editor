@@ -25,7 +25,7 @@ class QuasarEditor:
         self.attribute_screen   = AttributeScreen(self.root, self)
         self.menu               = Menu.Menu(root, self)
         
-        self.__current_file: File 
+        self.__current_file: File = None
         
         self.edit_screen.show_default()
         self.menu.create()
