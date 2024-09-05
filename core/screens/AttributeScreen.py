@@ -5,7 +5,7 @@ import tkinter as tk
 
 from core.file_objects import File
 from core.screens.Screen import Screen
-from shared.widgets.FileListBox.FileListBoxWid import FileListBoxWid
+#from shared.widgets.FileListBox.FileListBoxWid import FileListBoxWid
 
 class AttributeScreen(Screen):
     def __init__(self, root, editor):
@@ -15,6 +15,7 @@ class AttributeScreen(Screen):
         self.editor = editor
         self.item_data = dict()
         self.listbox = None
+        
         
     def set_visible(self):
         return super().set_visible(side="left", fill="both", expand=False)
@@ -32,7 +33,6 @@ class AttributeScreen(Screen):
         listbox = FileListBoxWid(path=path, callback=self.__on_item_click, master=self.screen, height=self.height, width=self.width, bg=self.editor.get_pallete().primary, bd=0)
         listbox.place(x=20, y=50)
         listbox.update()
-        
     
     def __on_item_click(self, entity: File, event, *a, **k):
         self.editor.load_file(file=entity)

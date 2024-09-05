@@ -4,56 +4,55 @@ import os
 from typing import Callable, Union
 from core.file_objects import Dir, File
 
-class FileListBoxWid():
+class FileListboxWidget(tk.Listbox):
     
-    def __init__(self, path: str, callback: Callable[[Union[File, Dir], object], None], *args, **kwds) -> None:
+    def __init__(self, master, path: str, callback: Callable[[File, Dir], object], *args, **kwd):
         
-        self.listbox = tk.Listbox(*args, **kwds, )
-        self.listbox.bind("<<ListboxSelect>>", self.__on_item_click)
-        self.callback = callback
-        
+        tk.Listbox.__init__(self, master, *args, **kwd)
+        self.callback=callback
         self.entities = [Dir(path=path, name=path.split("/")[-1])]
         
-        #for item in os.listdir(path):
-        #    fullpath = os.path.join(self.path, item)
-        #    self.entities.append( Dir(path=path, name=item) if os.path.isdir(fullpath) else File(path=path, name=item))
+        ## Scrols
+        v_scroll = tk.Scrollbar(master, orient=tk.VERTICAL, command=self.yview)
+        v_scroll.pack(side=tk.RIGHT, fill=tk.Y)
 
-    def place(self, x, y):
-        self.listbox.place(x=x, y=y)
-
+        h_scroll = tk.Scrollbar(master, orient=tk.HORIZONTAL, command=self.xview)
+        h_scroll.pack(side=tk.BOTTOM, fill=tk.X) 
+        
+        self.config(yscrollcommand=v_scroll.set, xscrollcommand=h_scroll.set)
+        self.bind("<<ListboxSelect>>", self.__on_item_click)
+        
+    
     def update(self):
-        # fix this, and att deletion just from the item clicked
-        self.listbox.delete(0, tk.END)
+        super().update()
+        self.delete(0, tk.END)
         for entity in self.entities:
             name = entity.get_name()
+            
             if isinstance(entity, File):
-                self.listbox.insert(tk.END, name)
+                self.insert(tk.END, name)
             else:
-                self.listbox.insert(tk.END, name + "/")
+                self.insert(tk.END, name + "/")
                 if not entity.is_closed():
-                    self.__insert_subitem_recursive(entity.get_entities())
-                    
-        
+                    self.__insert_subitem_recursive(entity.get_entities(), offset="\t")
+                        
     def __insert_subitem_recursive(self, entities: list[Union[Dir, File]], offset="\t"):
-        
         for entity in entities:
             display_name = f"{offset}{entity.get_name()}"
             if isinstance(entity, File):
-                self.listbox.insert(tk.END, display_name)
+                self.insert(tk.END, display_name)
             else:
-                self.listbox.insert(tk.END, display_name + "/")
-                if not entity.is_closed():
+                self.insert(tk.END, display_name + "/")
+                if not entity.is_closed():        
                     self.__insert_subitem_recursive(entity.get_entities(), offset=f"\t{offset}")
-    
+                        
     def __on_item_click(self, event, *a, **k):
-        selection = self.listbox.curselection()
+        selection = self.curselection()
         if selection:
             index = selection[0]
             items = self.__get_all_open_items(self.entities)
-            
-            
             entity = items[index]
-            
+                
             if isinstance(entity, Dir):
                 entity.toggle_open()
                 self.update()    
@@ -71,7 +70,3 @@ class FileListBoxWid():
             if isinstance(entity, Dir):
                 items.extend(entity.getOpenItems())
         return items
-        
-                
-        
-    

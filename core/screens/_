@@ -12,8 +12,8 @@ class EditorScreen(Screen):
     
     def __init__(self, root, editor) -> None:
         
-        super().__init__(root, bg=editor.get_pallete().background, width=500)
-        self.screen.pack(side="right", fill="both",expand=True)
+        super().__init__(root, bg=editor.get_pallete().background)
+        self.screen.pack(side="right", fill="both", expand=True)
         self.editor = editor
         
     def show_default(self):

@@ -18,3 +18,6 @@ def open_save_file():
     
     return file_path
 
+def clear_screen(parent):
+    for widget in parent.screen.winfo_children():
+        widget.destroy()

@@ -3,9 +3,10 @@ import config
 import Menu
 import yaml
 
+from shared import utils
 from types import SimpleNamespace
 from core.file_handlers import FileLoader
-from shared import utils
+from core.frames.AttributesFrame import AttributesFrame
 from core.screens.AttributeScreen import AttributeScreen
 from core.screens.EditorScreen import EditorScreen
 from core.file_objects import File
@@ -22,7 +23,7 @@ class QuasarEditor:
         self.root.title("<QuasarEditor>")
 
         self.edit_screen        = EditorScreen(self.root, self)
-        self.attribute_screen   = AttributeScreen(self.root, self)
+        #self.attribute_screen   = AttributeScreen(self.root, self)
         self.menu               = Menu.Menu(root, self)
         
         self.__current_file: File = None
@@ -30,6 +31,11 @@ class QuasarEditor:
         self.edit_screen.show_default()
         self.menu.create()
         
+        ###
+        ### New implementation
+        ###
+        
+        self.attributes_frame = AttributesFrame(root, self, bg="#021526")
         style.configure(root)
         
     def set_pallete(self, dir_pallete: str, file_pallete: str, theme: str):
@@ -51,8 +57,8 @@ class QuasarEditor:
             
     def load_dir(self):
         path = utils.open_dir()
-            
-        self.attribute_screen.show_dirtree(path)
+        self.attributes_frame.pack(fill=tk.BOTH, side="left", expand=False)
+        self.attributes_frame.show_tree(path)
         self.edit_screen.show_editor("")
             
     def new_file(self):
@@ -79,7 +85,7 @@ class QuasarEditor:
 
 
 # Create the main window and run the application
-if __name__ == "__main__":
+if __name__ == "__main__":#
     root = tk.Tk()
     app = QuasarEditor(root)
     root.mainloop()
