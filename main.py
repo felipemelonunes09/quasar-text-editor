@@ -58,6 +58,11 @@ class QuasarEditor:
     def new_file(self):
         self.edit_screen.set_visible()
         self.edit_screen.show_editor("")
+        
+    def exit(self):
+        self.attribute_screen.set_invisible()
+        self.edit_screen.show_default()
+        self.set_current_file(None)
     
     def get_current_file(self) -> File:
         return self.__current_file

@@ -21,7 +21,7 @@ class Menu():
         file_write.write()
         
     def on_exit(self, *a, **k):
-        pass
+        self.editor.exit()
     
     def create(self) -> None:
         menu_bar = tk.Menu(self.root)
