@@ -1,6 +1,7 @@
 import tkinter as tk
 import os
 
+from tkinter import ttk
 from typing import Callable, Union
 from core.file_objects import Dir, File
 
@@ -13,10 +14,10 @@ class FileListboxWidget(tk.Listbox):
         self.entities = [Dir(path=path, name=path.split("/")[-1])]
         
         ## Scrols
-        v_scroll = tk.Scrollbar(master, orient=tk.VERTICAL, command=self.yview)
+        v_scroll = ttk.Scrollbar(master, orient=tk.VERTICAL, command=self.yview, style="TScrollbar")
         v_scroll.pack(side=tk.RIGHT, fill=tk.Y)
 
-        h_scroll = tk.Scrollbar(master, orient=tk.HORIZONTAL, command=self.xview)
+        h_scroll = ttk.Scrollbar(master, orient=tk.HORIZONTAL, command=self.xview, style="TScrollbar")
         h_scroll.pack(side=tk.BOTTOM, fill=tk.X) 
         
         self.config(yscrollcommand=v_scroll.set, xscrollcommand=h_scroll.set)
