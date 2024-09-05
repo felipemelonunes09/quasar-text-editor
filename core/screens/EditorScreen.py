@@ -4,6 +4,9 @@ from tkinter import ttk
 
 import config
 
+from core.highlight.Highlight import Highlight
+from core.highlight.Syntax import Syntax
+
 from shared import utils
 
 from core.file_objects import File
@@ -49,23 +52,30 @@ class EditorScreen(Screen):
         self.text_widget.pack(expand=1, fill='both')
         self.text_widget.insert(tk.END, text)
         self.text_widget.bind('<KeyRelease>', self.highlight_keywords)
+        
         self.highlight_keywords()
         
         
     def highlight_keywords(self, event=None):
+        
+        # ths two line above can be removed to load the file syntax when the editor screen show, not when a key is pressed
+        syntax    = Syntax.map_file_extension(".qs")
+        highlight = Highlight(syntax.get('syntax'), self.text_widget)
+        highlight.apply_rule()
+                
         # Clear previous highlights
-        self.text_widget.tag_remove('highlight_var', '1.0', tk.END)
-        self.text_widget.tag_remove('highlight_string', '1.0', tk.END)
-        self.text_widget.tag_remove('highlight_number', '1.0', tk.END)
+        #self.text_widget.tag_remove('highlight_var', '1.0', tk.END)
+        #self.text_widget.tag_remove('highlight_string', '1.0', tk.END)
+        #self.text_widget.tag_remove('highlight_number', '1.0', tk.END)
 
         # Highlight '-var' in blue
-        self.highlight_word('-var', 'highlight_var', 'blue')
+        #self.highlight_word('-var', 'highlight_var', 'blue')
 
         # Highlight 'string' in green
-        self.highlight_word('string', 'highlight_string', 'green')
+        #self.highlight_word('string', 'highlight_string', 'green')
         
         # Highlight 'number' in green
-        self.highlight_word('number', 'highlight_string', 'green')
+        #self.highlight_word('number', 'highlight_string', 'green')
         
     def highlight_word(self, word, tag, color):
         start_pos = '1.0'

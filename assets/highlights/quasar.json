@@ -1,0 +1,68 @@
+{
+    "syntax": [
+        {
+            "id": "method",
+            "rule": "[a-zA-Z_][a-zA-Z_0-9]*\\([^)]*\\)",  
+            "color": "#FFFF00",  
+            "is-regex": true
+        },
+        {
+            "id": "parentheses_expression",
+            "rule": "\\([^)]*\\)",  
+            "color": "#FFFFFF",  
+            "is-regex": true
+        },
+        {
+            "id": "-var",
+            "rule": "-var",
+            "color": "#FF7F50"  
+        },
+        {
+            "id": "text",
+            "rule": "text",
+            "color": "#1E90FF"  
+        },
+        {
+            "id": "number",
+            "rule": "number",
+            "color": "#1E90FF"  
+        },
+        {
+            "id": "real",
+            "rule": "real",
+            "color": "#1E90FF"  
+        },
+        {
+            "id": "while",
+            "rule": "while",
+            "color": "#DC143C"  
+        },
+        {
+            "id": "do:while",
+            "rule": "do:while",
+            "color": "#DC143C"  
+        },
+        {
+            "id": "if",
+            "rule": "if",
+            "color": "#DC143C" 
+        },
+        {
+            "id": "else",
+            "rule": "else",
+            "color": "#DC143C" 
+        },
+        {
+            "id": "string_expression",
+            "rule": "\"[^\"]*\"",
+            "color": "#6A9955",  
+            "is-regex": true
+        },
+        {
+            "id": "comment",
+            "rule": "/\\*[^*]*\\*+(?:[^/*][^*]*\\*+)*/",  
+            "color": "#808080", 
+            "is-regex": true
+        }
+    ]
+}
