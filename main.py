@@ -3,71 +3,59 @@ import config
 import Menu
 import yaml
 
+from core.frames.StartFrame import StartFrame
 from shared import utils
 from types import SimpleNamespace
 from core.file_handlers import FileLoader
 from core.frames.AttributesFrame import AttributesFrame
-from core.screens.AttributeScreen import AttributeScreen
-from core.screens.EditorScreen import EditorScreen
+from core.frames.EditorFrame import EditorFrame
 from core.file_objects import File
 from styles import style
 
 class QuasarEditor:
-    def __init__(self, root):
+    def __init__(self, root: tk.Tk):
         
         self.__pallete        = None
         self.root = root
-        self.set_pallete(config.FS_PALLETES_DIR, config.FS_PALLETE_FILE, config.PALLETE)
-        
         self.root = root
         self.root.title("<QuasarEditor>")
-
-        self.edit_screen        = EditorScreen(self.root, self)
-        #self.attribute_screen   = AttributeScreen(self.root, self)
         self.menu               = Menu.Menu(root, self)
         
         self.__current_file: File = None
-        
-        self.edit_screen.show_default()
         self.menu.create()
         
-        ###
-        ### New implementation
-        ###
-        
         self.attributes_frame = AttributesFrame(root, self, bg="#021526")
+        self.editor_frame = EditorFrame(root, self, bg="#2f2f2f")
+        self.start_frame = StartFrame(root, self, bg="#2f2f2f", width=500, height=500)
+        
+        self.start_frame.pack()
         style.configure(root)
-        
-    def set_pallete(self, dir_pallete: str, file_pallete: str, theme: str):
-        
-        self.__pallete = SimpleNamespace()
-        
-        with open(f"{dir_pallete}/{file_pallete}", 'r') as file:
-            object = yaml.safe_load(file)
-        
-        for key in object[theme]:
-            self.__pallete.__setattr__(key, object[theme][key])
 
     def load_file(self, file: File = None):
-               
+        self.start_frame.forget()
+        self.editor_frame.pack(fill=tk.BOTH, side="right", expand=True)
         self.set_current_file(file=file)
         file_loader = FileLoader(file=file)
-        
-        self.edit_screen.show_editor(file_loader.load())        
+        self.editor_frame.show_editor(file_loader.load())        
             
     def load_dir(self):
         path = utils.open_dir()
+        self.start_frame.forget()
         self.attributes_frame.pack(fill=tk.BOTH, side="left", expand=False)
+        self.editor_frame.pack(fill=tk.BOTH, side="right", expand=True)
         self.attributes_frame.show_tree(path)
-        self.edit_screen.show_editor("")
+        self.editor_frame.show_editor("")
             
     def new_file(self):
-        self.edit_screen.set_visible()
-        self.edit_screen.show_editor("")
+        self.start_frame.forget()
+        self.attributes_frame.forget()
+        self.editor_frame.pack()
+        self.editor_frame.show_editor("")
         
     def exit(self):
-        self.attribute_screen.set_invisible()
-        self.edit_screen.show_default()
+        self.attributes_frame.forget()
+        self.editor_frame.forget()
+        self.start_frame.pack()
         self.set_current_file(None)
     
     def get_current_file(self) -> File:
@@ -77,7 +65,7 @@ class QuasarEditor:
         return self.__pallete
         
     def get_content(self):
-        return self.edit_screen.get_text()
+        return self.editor_frame.get_text()
     
     def set_current_file(self, file: File):
         self.__current_file = file

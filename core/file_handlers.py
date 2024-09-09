@@ -25,6 +25,7 @@ class FileWriter():
         else:
             content = self.__content
         
+        print(self.__file.get_path())
         with open(self.__file.get_path(), 'w') as file:     
             file.write(content)
             

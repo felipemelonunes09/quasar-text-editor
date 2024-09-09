@@ -15,7 +15,7 @@ class Menu():
         file = self.editor.get_current_file()
         if not file:
             path = utils.open_save_file()
-            file = File(path, path.split("/")[-1])
+            file = File( path.split("/")[-1], path)
         
         file_write = FileWriter(file=file, content=self.editor.get_content())
         file_write.write()
