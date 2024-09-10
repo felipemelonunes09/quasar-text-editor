@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 import config
 import Menu
 import yaml
@@ -14,21 +15,17 @@ from styles import style
 
 class QuasarEditor:
     def __init__(self, root: tk.Tk):
-        
-        self.__pallete        = None
         self.root = root
-        self.root = root
-        self.root.title("<QuasarEditor>")
-        self.menu               = Menu.Menu(root, self)
-        
+        self.root.title("<QuasarEditor>")    
         self.__current_file: File = None
+        self.menu = Menu.Menu(root, self)
         self.menu.create()
         
-        self.attributes_frame = AttributesFrame(root, self, bg="#021526")
-        self.editor_frame = EditorFrame(root, self, bg="#2f2f2f")
-        self.start_frame = StartFrame(root, self, bg="#2f2f2f", width=500, height=500)
-        
-        self.start_frame.pack()
+        self.attributes_frame = AttributesFrame(root, self, bg="#06141B")
+        self.editor_frame = EditorFrame(root, self, bg="#11212D")
+        self.start_frame = StartFrame(root, self, bg="#06141B", width=500, height=500)   
+
+        self.start_frame.pack(fill="both", expand=True)
         style.configure(root)
 
     def load_file(self, file: File = None):
@@ -55,7 +52,7 @@ class QuasarEditor:
     def exit(self):
         self.attributes_frame.forget()
         self.editor_frame.forget()
-        self.start_frame.pack()
+        self.start_frame.pack(fill="both", expand=True)
         self.set_current_file(None)
     
     def get_current_file(self) -> File:
@@ -69,14 +66,9 @@ class QuasarEditor:
     
     def set_current_file(self, file: File):
         self.__current_file = file
-    
-
 
 # Create the main window and run the application
 if __name__ == "__main__":#
     root = tk.Tk()
     app = QuasarEditor(root)
     root.mainloop()
-
-
-

@@ -23,7 +23,7 @@ class EditorFrame(tk.Frame):
         v_scrollbar.pack(side='right', fill='y')
         
         # Create the text widget with no word wrapping
-        self.text_widget = tk.Text(self, wrap='none', xscrollcommand=h_scrollbar.set, yscrollcommand=v_scrollbar.set)
+        self.text_widget = tk.Text(self, wrap='none', bg="#11212D", xscrollcommand=h_scrollbar.set, yscrollcommand=v_scrollbar.set)
         self.text_widget.pack(expand=1, fill='both')
         self.text_widget.bind('<KeyRelease>', self.highlight_keywords)
         
