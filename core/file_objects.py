@@ -56,4 +56,12 @@ class Dir(FileObject):
 class File(FileObject):
     def __init__(self, name, path) -> Any:
         super().__init__(name, path)
+        
+    def __hash__(self):
+        return hash((self.get_path(), self.get_name()))
+
+    def __eq__(self, other):
+        if isinstance(other, File):
+            return self.__name == other.get_name() and self.__path == other.get_path()
+        return False
     

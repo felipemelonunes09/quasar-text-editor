@@ -35,3 +35,4 @@ class Menu():
         
         
         self.root.bind('<Control-s>', self.on_save)
+
