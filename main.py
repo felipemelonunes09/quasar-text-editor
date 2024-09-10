@@ -32,8 +32,9 @@ class QuasarEditor:
         self.start_frame.forget()
         self.editor_frame.pack(fill=tk.BOTH, side="right", expand=True)
         self.set_current_file(file=file)
-        file_loader = FileLoader(file=file)
-        self.editor_frame.show_editor(file_loader.load())        
+        #file_loader = FileLoader(file=file)
+        #self.editor_frame.show_editor(file_loader.load())        
+        self.editor_frame.load_file(file)
             
     def load_dir(self):
         path = utils.open_dir()
@@ -46,7 +47,7 @@ class QuasarEditor:
     def new_file(self):
         self.start_frame.forget()
         self.attributes_frame.forget()
-        self.editor_frame.pack()
+        self.editor_frame.pack(fill=tk.BOTH, expand=True)
         self.editor_frame.show_editor("")
         
     def exit(self):
