@@ -12,11 +12,7 @@ class Menu():
         
     def on_save(self, *args, **kwd):
         
-        file = self.editor.get_current_file()
-        if not file:
-            path = utils.open_save_file()
-            file = File( path.split("/")[-1], path)
-        
+        file = self.editor.get_current_file()      
         file_write = FileWriter(file=file, content=self.editor.get_content())
         file_write.write()
         
@@ -32,7 +28,5 @@ class Menu():
         menu_bar.add_cascade(label="File", menu=file_menu)
         file_menu.add_command(label="Save", command=self.on_save)
         file_menu.add_command(label="Exit", command=self.on_exit)
-        
-        
         self.root.bind('<Control-s>', self.on_save)
 

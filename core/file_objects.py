@@ -54,6 +54,7 @@ class Dir(FileObject):
         return items
         
 class File(FileObject):
+    __edited = False
     def __init__(self, name, path) -> Any:
         super().__init__(name, path)
         
@@ -64,4 +65,10 @@ class File(FileObject):
         if isinstance(other, File):
             return self.__name == other.get_name() and self.__path == other.get_path()
         return False
+    
+    def set_edited(self, edited: bool):
+        self.__edited = edited
+        
+    def get_edited(self) -> bool:
+        return self.__edited
     
