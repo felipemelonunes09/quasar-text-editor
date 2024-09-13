@@ -6,12 +6,11 @@ import config
 
 class FileBar(tk.Frame):
     
-    __items:    set[File]        = set()
-    __widgets:  list[tk.Frame]   = list()
-    
     def __init__(self, parent, callback: Callable, *a, **k):
         self.callback = callback
         tk.Frame.__init__(self, parent, *a, **k)
+        self.__items:    set[File]        = set()
+        self.__widgets:  list[tk.Frame]   = list()
         self.update()
         
     def addItem(self, file: File):

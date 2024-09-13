@@ -6,3 +6,4 @@ icons_map = {
     "file-edit": tk.PhotoImage(config.FILE_EDIT_ICON_PATH),
     "project": tk.PhotoImage(config.PROJECT_ICON_PATH)
 }
+

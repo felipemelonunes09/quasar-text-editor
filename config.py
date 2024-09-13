@@ -17,5 +17,5 @@ MAP_EXTENSION_FILE = {
     '.qs': 'quasar.json'
 }
 
-HELLO_WOLD.py
+
 

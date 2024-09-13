@@ -10,23 +10,30 @@ class Menu():
         self.root = root
         self.editor = editor
         
-    def on_save(self, *args, **kwd):
+    def __on_save(self, *args, **kwd):
         
         file = self.editor.get_current_file()      
+        print(file.get_path())
         file_write = FileWriter(file=file, content=self.editor.get_content())
         file_write.write()
         
-    def on_exit(self, *a, **k):
+    def __on_exit(self, *a, **k):
         self.editor.exit()
+        
+    def __on_split(self, *a, **k):
+        self.editor.split()
     
     def create(self) -> None:
         menu_bar = tk.Menu(self.root)
         self.root.config(menu=menu_bar)
         
         file_menu = tk.Menu(menu_bar, tearoff=0)
-        
         menu_bar.add_cascade(label="File", menu=file_menu)
-        file_menu.add_command(label="Save", command=self.on_save)
-        file_menu.add_command(label="Exit", command=self.on_exit)
-        self.root.bind('<Control-s>', self.on_save)
+        file_menu.add_command(label="Save", command=self.__on_save)
+        file_menu.add_command(label="Exit", command=self.__on_exit)
+        
+        screen_menu = tk.Menu(menu_bar, tearoff=0)
+        menu_bar.add_cascade(label="Editor", menu=screen_menu)
+        screen_menu.add_command(label="Split", command=self.__on_split)
+        self.root.bind('<Control-s>', self.__on_save)
 
