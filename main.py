@@ -17,15 +17,14 @@ class QuasarEditor:
     def __init__(self, root: tk.Tk):
         self.root = root
         self.root.title("<QuasarEditor>")    
-        self.__current_file: File = None
         self.menu = Menu.Menu(root, self)
         self.menu.create()
         self.attributes_frame = AttributesFrame(root, self, bg="#06141B", width=200)
         self.start_frame = StartFrame(root, self, bg="#06141B", width=500, height=500)   
-        self.editor_frame: EditorFrame = None
         self.start_frame.pack(fill=tk.BOTH, expand=True)
+        self.editor_frame: EditorFrame = None
+        self.editors: list[EditorFrame] = list()
         style.configure(root)
-        self.editors = list()
         
     def split(self) -> None:
         n = self.add_new_editor()
@@ -62,18 +61,18 @@ class QuasarEditor:
         self.start_frame.forget()
         self.attributes_frame.forget()
         editor = self.get_current_editor()
-        editor.show_editor("")
+        editor.new_file()
         
     def exit(self):
         self.editor_frame.forget()
         for editor in self.editors:
             editor.forget()
+            editor.set_current_file(None)
         self.attributes_frame.forget()
         self.start_frame.pack(fill=tk.BOTH, expand=True)
-        self.set_current_file(None)
         
     def get_current_file(self) -> File:
-        return self.__current_file
+        return self.editor_frame.get_current_file()
     
     def get_pallete(self):
         return self.__pallete
@@ -82,12 +81,10 @@ class QuasarEditor:
         return self.editor_frame.get_text()
     
     def set_current_file(self, file: File):
-        self.__current_file = file
+        self.editor_frame.load_file(file)
         
     def __on_editor_focus(self, event, *a, **k):
-        print(event.widget.master in self.editors)
         self.editor_frame = event.widget.master
-        self.set_current_file( self.editor_frame.loaded_file)
 
 # Create the main window and run the application
 if __name__ == "__main__":#
