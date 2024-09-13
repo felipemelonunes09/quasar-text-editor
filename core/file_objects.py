@@ -13,6 +13,12 @@ class FileObject():
     
     def get_path(self) -> str:
         return self.__path
+    
+    def set_name(self, name: str) -> None:
+        self.__name = name
+    
+    def set_path(self, path: str) -> None:
+        self.__path = path
 
 class Dir(FileObject):
     def __init__(self, name, path) -> None:
