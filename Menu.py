@@ -12,8 +12,9 @@ class Menu():
         
     def __on_save(self, *args, **kwd):
         
-        file = self.editor.get_current_file()      
-        print(file.get_path())
+        file = self.editor.get_current_file()    
+        if(file.get_path() == None):
+            file.set_path(utils.open_save_file())  
         file_write = FileWriter(file=file, content=self.editor.get_content())
         file_write.write()
         
