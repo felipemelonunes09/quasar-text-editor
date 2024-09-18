@@ -25,3 +25,6 @@ Thumbs.db  # Windows
 # Ignore other unnecessary files
 *.log
 *.tmp
+
+
+./test
