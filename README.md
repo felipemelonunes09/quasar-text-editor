@@ -17,8 +17,9 @@ Before running the text editor, ensure you have the following installed:
   ```bash
   sudo apt-get install python3-tk
 
-## Installation
+## Running
 
-1. Clone this repository to your local machine:
+1. Run using the main.py
    ```bash
-   git clone https://github.com/your-username/quasareditor.git
+   python3 main.py
+
