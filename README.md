@@ -1,4 +1,5 @@
 # QuasarEditor
+**Status Atual: ✅ Concluído**
 
 QuasarEditor is a lightweight text editor built with Python's `tkinter` library. It allows users to write and edit text files with basic features like syntax highlighting and word coloring.
 
